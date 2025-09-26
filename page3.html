@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Page 3 · Shifted Gallery (Qingdao)</title>
+<style>
+/* -------- Page setup -------- */
+.wrapper{
+  width: calc(100% - 40px);
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width:1024px){
+  .wrapper{ width: calc(100% - 80px); }
+}
+body{
+  padding:40px;
+  background: url("images/page3-bg.jpg") no-repeat center center fixed; 
+  background-size: cover;
+  color:#525252;
+  font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+img, video{ display:block; max-width:100%; }
+
+/* -------- Gallery base -------- */
+.gallery{
+  display:grid;
+  grid-gap:15px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "..  i2"
+    "i1  i2"
+    "i1  i4"
+    "i3  i4"
+    "i3  i6"
+    "i5  i6"
+    "i5  i8"
+    "i7  i8"
+    "i7  i10"
+    "i9  i10"
+    "i9  i12"
+    "i11 i12"
+    "i11 i14"
+    "i13 i14"
+    "i13 i16"
+    "i15 i16"
+    "i15 ..";
+}
+@media (min-width:640px){
+  .gallery{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "..  i2  .."
+      "i1  i2  .."
+      "i1  i5  .."
+      "i4  i5  i3"
+      "i4  i6  i3"
+      "i7  i6  i8"
+      "i7  i9  i8"
+      "i10 i9  i11"
+      "i10 i12 i11"
+      "i13 i12 i14"
+      "i13 i15 i14"
+      "i16 i15 .."
+      "i16 ..  ..";
+  }
+}
+@media (min-width:1024px){
+  .gallery{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "..  ..  i3  .."
+      "..  i2  i3  .."
+      "i1  i2  i5  .."
+      "i1  i4  i5  i6"
+      "i9  i4  i8  i6"
+      "i9  i7  i8  i12"
+      "i13 i7  i11 i12"
+      "i13 i10 i11 i16"
+      "..  i10 i15 i16"
+      "..  i14 i15 .."
+      "..  i14 ..  ..";
+  }
+}
+
+/* -------- Item cell (square) -------- */
+.gallery__item{
+  position:relative;
+  padding-top:100%; /* 1:1 square */
+  background:#eceae6;
+  cursor: zoom-in;
+}
+
+/* map nth-child to grid areas */
+.gallery__item:nth-child(1){  grid-area:i1; }
+.gallery__item:nth-child(2){  grid-area:i2; }
+.gallery__item:nth-child(3){  grid-area:i3; }
+.gallery__item:nth-child(4){  grid-area:i4; }
+.gallery__item:nth-child(5){  grid-area:i5; }
+.gallery__item:nth-child(6){  grid-area:i6; }
+.gallery__item:nth-child(7){  grid-area:i7; }
+.gallery__item:nth-child(8){  grid-area:i8; }
+.gallery__item:nth-child(9){  grid-area:i9; }
+.gallery__item:nth-child(10){ grid-area:i10; }
+.gallery__item:nth-child(11){ grid-area:i11; }
+.gallery__item:nth-child(12){ grid-area:i12; }
+.gallery__item:nth-child(13){ grid-area:i13; }
+.gallery__item:nth-child(14){ grid-area:i14; }
+.gallery__item:nth-child(15){ grid-area:i15; }
+/* i16 在模板里做占位，不影响 */
+
+/* -------- Media inside cell -------- */
+.gallery__asset{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  background:#ddd;
+}
+
+/* lazysizes fade-in */
+.gallery__asset.lazyload,
+.gallery__asset.lazyloading{
+  opacity:0; transform:scale(0.95);
+}
+.gallery__asset.lazyloaded{
+  opacity:1; transform:scale(1);
+  transition: all .4s cubic-bezier(0.73, 0.09, 0.21, 0.96);
+}
+
+/* -------- Lightbox -------- */
+.lightbox{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.lightbox.is-open{ display:flex; }
+.lightbox__inner{
+  max-width: 92vw;
+  max-height: 90vh;
+}
+.lightbox__media{
+  display:block;
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  background:#000;
+}
+.lightbox__close{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.15);
+  color:#fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* -------- Back button (与无锡页一致) -------- */
+.back{
+  justify-self:center;
+  margin:20px;
+  padding:10px 16px;
+  background:#fff;
+  color:#111;
+  text-decoration:none;
+  border-radius:6px;
+  font-weight:600;
+}
+.back:hover{ filter:brightness(.9); }
+
+</style>
+</head>
+<body>
+<main class="wrapper">
+  <div class="gallery">
+
+    <!-- 1 ~ 15 混排：8个视频（.mov），7张图片（.jpg） -->
+    <!-- 1 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao1.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao1.jpg">
+        <source src="qingdao1.mov" type="video/mp4">
+        <source src="qingdao1.mov" type="video/quicktime">
+      </video>
+    </div>
+
+    <!-- 2 图片 -->
+    <div class="gallery__item">
+      <img class="gallery__asset lazyload" alt="qingdao2"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="qingdao2.jpg"
+           data-full="qingdao2.jpg">
+    </div>
+
+    <!-- 3 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao3.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao3.jpg">
+        <source src="qingdao3.mov" type="video/mp4">
+        <source src="qingdao3.mov" type="video/quicktime">
+      </video>
+    </div>
+
+    <!-- 4 图片 -->
+    <div class="gallery__item">
+      <img class="gallery__asset lazyload" alt="qingdao4"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="qingdao4.jpg"
+           data-full="qingdao4.jpg">
+    </div>
+
+    <!-- 5 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao5.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao5.jpg">
+        <source src="qingdao5.mov" type="video/mp4">
+        <source src="qingdao5.mov" type="video/quicktime">
+      </video>
+    </div>
+
+    <!-- 6 图片 -->
+    <div class="gallery__item">
+      <img class="gallery__asset lazyload" alt="qingdao6"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="qingdao6.jpg"
+           data-full="qingdao6.jpg">
+    </div>
+
+    <!-- 7 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao7.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao7.jpg">
+        <source src="qingdao7.mov" type="video/mp4">
+        <source src="qingdao7.mov" type="video/quicktime">
+      </video>
+    </div>
+
+    <!-- 8 图片 -->
+    <div class="gallery__item">
+      <img class="gallery__asset lazyload" alt="qingdao8"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="qingdao8.jpg"
+           data-full="qingdao8.jpg">
+    </div>
+
+    <!-- 9 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao9.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao9.jpg">
+        <source src="qingdao9.mov" type="video/mp4">
+        <source src="qingdao9.mov" type="video/quicktime">
+      </video>
+    </div>
+
+    <!-- 10 图片 -->
+    <div class="gallery__item">
+      <img class="gallery__asset lazyload" alt="qingdao10"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="qingdao10.jpg"
+           data-full="qingdao10.jpg">
+    </div>
+
+    <!-- 11 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao11.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao11.jpg">
+        <source src="qingdao11.mov" type="video/mp4">
+        <source src="qingdao11.mov" type="video/quicktime">
+      </video>
+    </div>
+
+    <!-- 12 图片 -->
+    <div class="gallery__item">
+      <img class="gallery__asset lazyload" alt="qingdao12"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="qingdao12.jpg"
+           data-full="qingdao12.jpg">
+    </div>
+
+    <!-- 13 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao13.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao13.jpg">
+        <source src="qingdao13.mov" type="video/mp4">
+        <source src="qingdao13.mov" type="video/quicktime">
+      </video>
+    </div>
+
+    <!-- 14 图片 -->
+    <div class="gallery__item">
+      <img class="gallery__asset lazyload" alt="qingdao14"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="qingdao14.jpg"
+           data-full="qingdao14.jpg">
+    </div>
+
+    <!-- 15 视频 -->
+    <div class="gallery__item" data-type="video" data-full="qingdao15.mov">
+      <video class="gallery__asset" playsinline muted controls preload="metadata" poster="qingdao15.jpg">
+        <source src="qingdao15.mov" type="video/mp4">
+        <source src="qingdao15.mov" type="video/quicktime">
+      </video>
+    </div>
+
+  </div>
+
+  <!-- 返回首页按钮（与无锡页一致） -->
+  <a class="back" href="index.html">←</a>
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" aria-label="Close">✕</button>
+  <div class="lightbox__inner" id="lightboxInner"></div>
+</div>
+
+<!-- lazysizes (images) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+
+<script>
+/* 轻量 Lightbox：支持图片与视频（.mov/.mp4） */
+(function(){
+  const box = document.getElementById('lightbox');
+  const inner = document.getElementById('lightboxInner');
+  const closeBtn = box.querySelector('.lightbox__close');
+
+  function openLightbox(el){
+    inner.innerHTML = ''; // reset
+
+    // 如果点击的是 <img>
+    if (el.tagName.toLowerCase() === 'img'){
+      const full = el.getAttribute('data-full') || el.currentSrc || el.src;
+      const img = document.createElement('img');
+      img.className = 'lightbox__media';
+      img.src = full;
+      img.alt = el.alt || '';
+      inner.appendChild(img);
+    }
+
+    // 如果点击的是“视频容器”或“视频本身”
+    if (el.dataset && el.dataset.type === 'video'){
+      const src = el.dataset.full;
+      const video = document.createElement('video');
+      video.className = 'lightbox__media';
+      video.src = src;
+      video.controls = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      inner.appendChild(video);
+    }
+    if (el.tagName.toLowerCase() === 'video'){
+      const parent = el.closest('.gallery__item');
+      if (parent && parent.dataset.type === 'video'){
+        const src = parent.dataset.full || (el.querySelector('source') && el.querySelector('source').src) || el.currentSrc;
+        const video = document.createElement('video');
+        video.className = 'lightbox__media';
+        video.src = src;
+        video.controls = true;
+        video.playsInline = true;
+        video.autoplay = true;
+        inner.appendChild(video);
+      }
+    }
+
+    box.classList.add('is-open');
+    box.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(){
+    box.classList.remove('is-open');
+    box.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    inner.innerHTML = '';
+  }
+
+  document.querySelector('.gallery').addEventListener('click', (e)=>{
+    const t = e.target;
+    if (t.classList.contains('gallery__asset')){
+      // 点击的是媒体元素
+      const item = t.closest('.gallery__item');
+      openLightbox(item && item.dataset.type ? item : t);
+    } else {
+      // 点击的是空白或父层
+      const item = t.closest('.gallery__item');
+      if (item){
+        const media = item.querySelector('.gallery__asset') || item;
+        openLightbox(item.dataset.type ? item : media);
+      }
+    }
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+  box.addEventListener('click', (e)=>{ if(e.target === box) closeLightbox(); });
+  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+</body>
+</html>

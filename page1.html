@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wuxi – Waterfall Grid</title>
+<style>
+  :root{
+    --rows1: 3;   /* 对应 30vh / 10vh */
+    --rows2: 4;   /* 对应 40vh / 10vh */
+    --rows3: 5;   /* 对应 50vh / 10vh */
+    --gcd: 10vh;  /* 基础行高 */
+    --minw: 150px;
+    --gap: 1em;
+  }
+  * { box-sizing: border-box; }
+  body{
+  padding:40px;
+  background: url("images/page2-bg.jpg") no-repeat center center fixed; 
+  background-size: cover;
+  color:#fff;
+  font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+  header{ text-align:center; padding:32px 16px 0; }
+  .waterfall{
+  width: min(1200px, calc(100vw - 80px)); /* 80px = body 左右各 40px 的 padding */
+  margin: 3em auto 2em;                  /* 居中关键：左右 auto */
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(var(--minw), 1fr));
+  grid-auto-rows: var(--gcd);
+  grid-auto-flow: row dense;
+}
+  .waterfall .item:nth-of-type(3n+1){ grid-row:auto / span var(--rows1); }
+  .waterfall .item:nth-of-type(3n+2){ grid-row:auto / span var(--rows2); }
+  .waterfall .item:nth-of-type(3n+3){ grid-row:auto / span var(--rows3); }
+
+  .item{
+    overflow:hidden; border:1em solid transparent; border-radius:10px;
+    transform:rotate(-7.5deg);
+    filter:saturate(0) contrast(10) brightness(0.2);
+    transition:transform .2s ease, border .1s ease, filter .2s ease;
+    will-change:transform, filter;
+  }
+  .item img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transform:rotate(15deg); transition:transform .3s ease; will-change:transform;
+  }
+  .item.inbound{ transform:rotate(0); filter:none; border-bottom:1px solid #fff; }
+  .item.inbound img{ transform:rotate(0); }
+
+  .back{
+    justify-self:center; margin:8px 0 24px;
+    padding:10px 16px; border-radius:8px;
+    background:#fff; color:#111; text-decoration:none; font-weight:600;
+  }
+  .back:hover{ filter:brightness(.9); }
+
+  @media (max-width:768px){ :root{ --gcd:9vh; } }
+  @media (max-width:480px){ :root{ --gcd:8vh; --minw:130px; } }
+</style>
+</head>
+<body>
+
+  <header>
+    <h2 style="margin:0;opacity:.85;">Wuxi</h2>
+    <p style="margin:.4em 0 0;opacity:.6;font-size:14px;">“In my memory, summers in Wuxi are scorching. At first, they felt only stifling and endless, yet still filled with anticipation. Gradually, I came to realize that the sunlight and rain held warmth and beauty within them. I slowly learned to fully embrace the moment. Whether last year or this year, summer has been wonderful—I will remember it forever!”</p>
+  </header>
+
+  <section class="waterfall">
+    <div class="item"><img src="images/wuxi01.jpg" alt="无锡照片 1"></div>
+    <div class="item"><img src="images/wuxi02.jpg" alt="无锡照片 2"></div>
+    <div class="item"><img src="images/wuxi03.jpg" alt="无锡照片 3"></div>
+    <div class="item"><img src="images/wuxi04.jpg" alt="无锡照片 4"></div>
+    <div class="item"><img src="images/wuxi05.jpg" alt="无锡照片 5"></div>
+    <div class="item"><img src="images/wuxi06.jpg" alt="无锡照片 6"></div>
+    <div class="item"><img src="images/wuxi07.jpg" alt="无锡照片 7"></div>
+    <div class="item"><img src="images/wuxi08.jpg" alt="无锡照片 8"></div>
+    <div class="item"><img src="images/wuxi09.jpg" alt="无锡照片 9"></div>
+    <div class="item"><img src="images/wuxi10.jpg" alt="无锡照片 10"></div>
+    <div class="item"><img src="images/wuxi11.jpg" alt="无锡照片 11"></div>
+    <div class="item"><img src="images/wuxi12.jpg" alt="无锡照片 12"></div>
+    <div class="item"><img src="images/wuxi13.jpg" alt="无锡照片 13"></div>
+    <div class="item"><img src="images/wuxi14.jpg" alt="无锡照片 14"></div>
+    <div class="item"><img src="images/wuxi15.jpg" alt="无锡照片 15"></div>
+    <div class="item"><img src="images/wuxi16.jpg" alt="无锡照片 16"></div>
+    <div class="item"><img src="images/wuxi17.jpg" alt="无锡照片 17"></div>
+    <div class="item"><img src="images/wuxi18.jpg" alt="无锡照片 18"></div>
+    <div class="item"><img src="images/wuxi19.jpg" alt="无锡照片 19"></div>
+    <div class="item"><img src="images/wuxi20.jpg" alt="无锡照片 20"></div>
+  </section>
+
+  <a class="back" href="index.html">←</a>
+
+<script>
+const observer = new IntersectionObserver(onEntries, {
+  threshold: [0], 
+  // 上下各留 40% 的不可见边带，只有进入中间 20% 区域才算 intersecting
+  rootMargin: '-40% 0px -40% 0px'
+});
+function onEntries(entries){
+  for (const entry of entries){
+    entry.target.classList.toggle('inbound', entry.isIntersecting);
+  }
+}
+document.querySelectorAll('.item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
